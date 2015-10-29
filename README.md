@@ -1,4 +1,5 @@
 ![](https://cloud.githubusercontent.com/assets/109988/10830648/215db03c-7e57-11e5-9a46-ca90186dd8af.png)
+
 A really, really simple Django-based admin interface for our elections loader.
 
 **NOTE**: This is substantially broken and will be in active development leading up to the November 3rd, 2015, general election. Use at your own risk.
