@@ -68,6 +68,7 @@ class Race(models.Model):
     lastupdated = models.CharField(max_length=255, blank=True, null=True)
     lastupdated_parsed = models.DateTimeField(blank=True, null=True)
     initialization_data = models.BooleanField()
+    race_votecount = models.IntegerField(default=0, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -99,6 +100,10 @@ class ReportingUnit(models.Model):
     raceid = models.CharField(max_length=255, blank=True, null=True)
     description = models.CharField(max_length=255, blank=True, null=True)
     seatname = models.CharField(max_length=255, blank=True, null=True)
+    uncontested = models.BooleanField()
+    reportingunit_votecount = models.IntegerField(default=0, blank=True, null=True)
+    race_votecount = models.IntegerField(default=0, blank=True, null=True)
+    race_votepct = models.FloatField(default=0.0, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -133,6 +138,11 @@ class CandidateResult(models.Model):
     statename = models.CharField(max_length=255, blank=True, null=True)
     seatname = models.CharField(max_length=255, blank=True, null=True)
     description = models.CharField(max_length=255, blank=True, null=True)
+    uncontested = models.BooleanField()
+    reportingunit_votecount = models.IntegerField(default=0, blank=True, null=True)
+    reportingunit_votepct = models.FloatField(default=0.0, blank=True, null=True)
+    race_votecount = models.IntegerField(default=0, blank=True, null=True)
+    race_votepct = models.FloatField(default=0.0, blank=True, null=True)
 
     class Meta:
         managed = False
