@@ -109,7 +109,7 @@ LOGGING = {
           'level': 'INFO',
           'class': 'logging.handlers.SysLogHandler',
           'formatter': 'simple_file',
-          'address': (os.environ.get('ELEX_LOGGING_URL', 'logs2.papertrailapp.com'), int(os.environ.get('ELEX_LOGGING_PORT', 21)))
+          'address': (os.environ.get('ELEX_LOGGING_URL', '127.0.0.1'), int(os.environ.get('ELEX_LOGGING_PORT', 514)))
         }
     },
     'loggers': {
