@@ -16,8 +16,12 @@ class CandidateResultAdmin(admin.ModelAdmin):
     list_filter = ['statepostal', 'is_ballot_position','officename','seatname','reportingunitname']
     list_display = ['__unicode__','votecount','reportingunit_votecount', 'reportingunit_votepct','race_votecount','race_votepct']
 
+class ReportingUnitAdmin(admin.ModelAdmin):
+    list_display = ['__unicode__', 'statepostal', 'reportingunitname', 'officename', 'seatname']
+    list_filter = ['statepostal', 'officename', 'seatname', 'level']
+
 admin.site.register(models.Race, RaceAdmin)
 admin.site.register(models.Candidate, CandidateAdmin)
 admin.site.register(models.BallotPosition)
 admin.site.register(models.CandidateResult, CandidateResultAdmin)
-admin.site.register(models.ReportingUnit)
+admin.site.register(models.ReportingUnit, ReportingUnitAdmin)

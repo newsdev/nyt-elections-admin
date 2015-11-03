@@ -95,20 +95,21 @@ LOGGING = {
             'format': '%(log_color)s %(levelname)s %(message)s',
         },
         'simple_file': {
-            'format': '%(levelname)s %(message)s',
+            'format': '%(asctime)s jeremy_laptop elections-2016: %(message)s',
+            'datefmt': '%Y-%m-%dT%H:%M:%S'
         },
     },
     'handlers': {
         'console': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple_console',
+            'formatter': 'simple_file',
         },
         'syslog':{
           'level': 'INFO',
           'class': 'logging.handlers.SysLogHandler',
           'formatter': 'simple_file',
-          'address': (os.environ.get('ELEX_LOGGING_URL', '127.0.0.1'), int(os.environ.get('ELEX_LOGGING_PORT', 514)))
+          'address': (os.environ.get('ELEX_LOGGING_URL', 'logs2.papertrailapp.com'), int(os.environ.get('ELEX_LOGGING_PORT', 21)))
         }
     },
     'loggers': {

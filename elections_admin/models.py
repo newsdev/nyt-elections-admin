@@ -96,7 +96,7 @@ class ReportingUnit(models.Model):
     lastupdated = models.CharField(max_length=255, blank=True, null=True)
     lastupdated_parsed = models.DateTimeField(blank=True, null=True)
     precinctsreporting = models.IntegerField()
-    precinctsyotal = models.IntegerField()
+    precinctstotal = models.IntegerField()
     precinctsreportingpct = models.FloatField()
     raceid = models.CharField(max_length=255, blank=True, null=True)
     description = models.CharField(max_length=255, blank=True, null=True)
