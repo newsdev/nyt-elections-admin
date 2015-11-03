@@ -100,7 +100,7 @@ LOGGING = {
     },
     'handlers': {
         'file': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': '/tmp/nyt-elections-admin.log',
             'formatter': 'simple_file',
