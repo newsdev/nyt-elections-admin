@@ -99,14 +99,8 @@ LOGGING = {
         },
     },
     'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': '/tmp/nyt-elections-admin.log',
-            'formatter': 'simple_file',
-        },
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'simple_console',
         },
@@ -119,7 +113,7 @@ LOGGING = {
     },
     'loggers': {
         '': {
-            'handlers': ['file', 'console', 'syslog'],
+            'handlers': ['console', 'syslog'],
             'level': 'DEBUG',
             'propagate': True,
         },

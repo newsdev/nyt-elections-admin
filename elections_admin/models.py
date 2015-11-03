@@ -85,6 +85,7 @@ class ReportingUnit(models.Model):
     accept_ap_calls = models.BooleanField(default=True)
     race = models.ForeignKey(Race, blank=True, null=True)
     officeid = models.CharField(max_length=255, blank=True, null=True)
+    officename = models.CharField(max_length=255, blank=True, null=True)
     racetype = models.CharField(max_length=255, blank=True, null=True)
     statepostal = models.CharField(max_length=255, blank=True, null=True)
     statename = models.CharField(max_length=255, blank=True, null=True)
@@ -122,6 +123,7 @@ class CandidateResult(models.Model):
     race = models.ForeignKey(Race, blank=True, null=True)
     racetype = models.CharField(max_length=255, blank=True, null=True)
     reportingunitid = models.CharField(max_length=255, blank=True, null=True)
+    reportingunitname = models.CharField(max_length=255, blank=True, null=True)
     first = models.CharField(max_length=255, blank=True, null=True)
     last = models.CharField(max_length=255, blank=True, null=True)
     party = models.CharField(max_length=255, blank=True, null=True)
@@ -130,6 +132,7 @@ class CandidateResult(models.Model):
     ballotorder = models.CharField(max_length=255, blank=True, null=True)
     polnum = models.CharField(max_length=255, blank=True, null=True)
     officeid = models.CharField(max_length=255, blank=True, null=True)
+    officename = models.CharField(max_length=255, blank=True, null=True)
     votecount = models.IntegerField()
     winner = models.BooleanField()
     is_ballot_position = models.BooleanField()
@@ -147,3 +150,12 @@ class CandidateResult(models.Model):
     class Meta:
         managed = False
         db_table = 'candidateresult'
+        ordering = ['statepostal', 'last', 'first']
+
+    def __unicode__(self):
+        if self.is_ballot_position:
+            return "%s %s %s" % (self.last, self.statepostal, self.seatname)
+        if self.seatname:
+            return "%s %s %s %s" % (self.first, self.last, self.statepostal, self.seatname)
+        if self.officename:
+            return "%s %s (%s): %s" % (self.first, self.last, self.statepostal, self.officename)
