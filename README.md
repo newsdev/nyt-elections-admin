@@ -7,6 +7,15 @@ A really, really simple Django-based admin interface for our elections loader.
 ## Bootstrapping
 Our environment and install requirements.
 
+### Database
+```
+createdb elex
+createuser elex
+psql elex
+alter user elex with superuser;
+```
+
+### Python environment
 ```
 mkvirtualenv nyt-elections-admin
 git clone git@github.com:newsdev/nyt-elections-admin.git && cd nyt-elections-admin
@@ -15,17 +24,30 @@ add2virtualenv .
 export DJANGO_SETTINGS_MODULE=config.dev.settings
 ```
 
-* Before you can load data, you need to have a Postgres database called `elex` and a user `elex` that can insert/update/delete but also create indexes. Since it's local development, we recommend making this user a superuser.
-
+### Secrets / configuration
 ```
-createdb elex
-createuser elex
-psql elex
-alter user elex with superuser;
+AP_API_KEY              # Your AP API key
+ELEX_RECORDING=         # mongodb or flat
+ELEX_LOGGING_URL=       # Your syslog URL, e.g., 127.0.0.1 or logs.papertrail.com
+ELEX_LOGGING_PORT=      # Your syslog port, e.g., 514 or 1111
 ```
 
-* Now you can load data.
+### Load data
 
+#### Initial data
+Initial data is only candidates, ballot positions and races. Does not run aggregates.
 ```
-django-admin load_election
+django-admin load_initial --date=2015-11-03
+```
+
+#### Global data
+Global data loads the entire state of all races for this election. Does run aggregates. Will blow away edits to candidates and ballot positions.
+```
+django-admin load_initial --date=2015-11-03
+```
+
+### Updates
+Updates refreshes races, candidate results and reporting units. Does run aggregates. Will not blow away edits to candidates or ballot positions.
+```
+django-admin load_updates --date=2015-11-03
 ```
