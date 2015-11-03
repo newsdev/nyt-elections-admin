@@ -2,8 +2,8 @@
 Database credentials should be exported to the ENV.
 There are defaults here that can be overridden.
 """
-
 import os
+from colorlog import ColoredFormatter
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
@@ -81,3 +81,47 @@ TEMPLATE_LOADERS = (
 TEMPLATE_DIRS = (
     'elections_admin/templates/',
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': '%(log_color)s %(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s',
+        },
+        'simple_console': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': '%(log_color)s %(levelname)s %(message)s',
+        },
+        'simple_file': {
+            'format': '%(levelname)s %(message)s',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/tmp/nyt-elections-admin.log',
+            'formatter': 'simple_file',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple_console',
+        },
+        'syslog':{
+          'level': 'INFO',
+          'class': 'logging.handlers.SysLogHandler',
+          'formatter': 'simple_file',
+          'address': (os.environ.get('ELEX_LOGGING_URL', '127.0.0.1'), int(os.environ.get('ELEX_LOGGING_PORT', 514)))
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['file', 'console', 'syslog'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
