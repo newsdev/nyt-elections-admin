@@ -20,7 +20,7 @@ pycparser==2.14
 pymongo==2.8
 python-dateutil==2.4.2
 readline==6.2.4.1
-requests==2.8.1
+requests==2.31.0
 simplegeneric==0.8.1
 six==1.10.0
 traitlets==4.0.0
